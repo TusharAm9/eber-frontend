@@ -1,36 +1,32 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from "@angular/core";
+import { Router } from "@angular/router";
 declare var google: any;
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"],
 })
 export class HomeComponent {
   map: any;
   directionsService: any;
   directionsRenderer: any;
 
-  constructor(private router: Router){}
-
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.initMap();
   }
 
   navigateToCreateRide() {
-    this.router.navigate(['/app/createride']);
+    this.router.navigate(["/app/createride"]);
   }
-
-
-
 
   // -------------------------------------INITIALIZE GOOGLE MAP-------------------------------------//
   initMap() {
     const rajkotLocation = { lat: 22.5744, lng: 88.3629 }; // Rajkot coordinates
-    const ahmedabadLocation = { lat: 23.0225, lng: 72.5714 }; // Ahmedabad coordinates
-  
+    const ahmedabadLocation = { lat: 22.5852, lng: 88.3468 }; // Ahmedabad coordinates 22.5852° N, 88.3468° E
+
     this.map = new google.maps.Map(
       document.getElementById("map") as HTMLElement,
       {
@@ -38,7 +34,7 @@ export class HomeComponent {
         center: rajkotLocation,
       }
     );
-  
+
     this.directionsService = new google.maps.DirectionsService();
     this.directionsRenderer = new google.maps.DirectionsRenderer({
       map: this.map,
@@ -46,14 +42,14 @@ export class HomeComponent {
         strokeColor: "blue", // Set the route path color to blue
       },
     });
-  
+
     // Set up directions request
     const request = {
       origin: rajkotLocation,
       destination: ahmedabadLocation,
       travelMode: google.maps.TravelMode.DRIVING,
     };
-  
+
     // Calculate and display directions
     this.directionsService.route(request, (response: any, status: any) => {
       if (status === google.maps.DirectionsStatus.OK) {
@@ -79,6 +75,4 @@ export class HomeComponent {
       }
     });
   }
-  
-  
 }
